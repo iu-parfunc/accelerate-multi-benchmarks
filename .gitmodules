@@ -7,3 +7,6 @@
 [submodule "Accelerate-examples"]
 	path = Accelerate-examples
 	url = git@github.com:accelerateHS/Accelerate-examples
+[submodule "hsbencher"]
+	path = hsbencher
+	url = git@github.com:rrnewton/hsbencher
