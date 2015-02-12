@@ -19,3 +19,12 @@
 [submodule "Accelerate-io"]
 	path = Accelerate-io
 	url = git@github.com:tmcdonell/Accelerate-io
+[submodule "gloss"]
+	path = gloss
+	url = git@github.com:iu-parfunc/gloss
+[submodule "cuda"]
+	path = cuda
+	url = git@github.com:tmcdonell/cuda
+[submodule "accelerate-fft"]
+	path = accelerate-fft
+	url = git@github.com:tmcdonell/accelerate-fft
