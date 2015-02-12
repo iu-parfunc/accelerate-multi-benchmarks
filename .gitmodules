@@ -1,0 +1,9 @@
+[submodule "Accelerate"]
+	path = Accelerate
+	url = git@github.com:accelerateHS/Accelerate
+[submodule "Accelerate-cuda"]
+	path = Accelerate-cuda
+	url = git@github.com:accelerateHS/Accelerate-cuda
+[submodule "Accelerate-examples"]
+	path = Accelerate-examples
+	url = git@github.com:accelerateHS/Accelerate-examples
