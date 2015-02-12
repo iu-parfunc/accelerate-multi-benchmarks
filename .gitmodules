@@ -10,3 +10,12 @@
 [submodule "hsbencher"]
 	path = hsbencher
 	url = git@github.com:rrnewton/hsbencher
+[submodule "gloss-accelerate"]
+	path = gloss-accelerate
+	url = git@github.com:tmcdonell/gloss-accelerate
+[submodule "gloss-raster-accelerate"]
+	path = gloss-raster-accelerate
+	url = git@github.com:tmcdonell/gloss-raster-accelerate
+[submodule "Accelerate-io"]
+	path = Accelerate-io
+	url = git@github.com:tmcdonell/Accelerate-io
