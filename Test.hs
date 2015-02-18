@@ -1,5 +1,7 @@
 {-# LANGUAGE BangPatterns #-} 
 
+module Main where
+
 import Data.Array.Accelerate       as A 
 import Data.Array.Accelerate.CUDA 
 
@@ -21,4 +23,7 @@ test = run1_ (A.zipWith (+) ys') zs
     
 xs = run1_ (A.map (+1)) array 
 
+
+main ::IO () 
+main = print test
 
