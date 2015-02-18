@@ -47,6 +47,10 @@ $CABAL --version
 which c2hs     || echo ok
 c2hs --version || echo ok
 
+which -a nvcc
+
+nvidia-smi
+
 unset GHC
 unset GHC_PKG
 
