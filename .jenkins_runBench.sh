@@ -48,10 +48,15 @@ which c2hs     || echo ok
 c2hs --version || echo ok
 
 which -a nvcc
-#do this properly ?? 
-module add cuda 
+
 
 nvidia-smi
+# set some nvidia paths 
+
+export PATH=/usr/local/cuda-6.5/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-6.5/lib64:$LD_LIBRARY_PATH
+
+
 
 unset GHC
 unset GHC_PKG
