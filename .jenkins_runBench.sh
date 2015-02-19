@@ -77,7 +77,8 @@ git submodule update --init --recursive
 export GIT_DEPTH=`git log --pretty=oneline | wc -l`
 echo "Running at GIT_DEPTH:" $GIT_DEPTH
 
-TAG=`date +'%s'`
+TAG="TEST"
+# `date +'%s'`
 BAKDIR=$HOME/benchdata_bak/$TABLENAME/depth_${GIT_DEPTH}/
 WINDIR=$BAKDIR/uploaded
 FAILDIR=$BAKDIR/failed_upload
