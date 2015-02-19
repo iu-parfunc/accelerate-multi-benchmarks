@@ -160,7 +160,7 @@ for executable in accelerate-nbody accelerate-mandelbrot ; do
      accelerate-mandelbrot) 
        for arg in 256 512 1024 2048 4096; do 
 	   VARIANT=$variant
-	   $BINDIR/accelerate-mandel  --$VARIANT --width=$arg --heigh=$arg --benchmark \
+	   $BINDIR/accelerate-mandelbrot  --$VARIANT --width=$arg --height=$arg --benchmark \
 	       --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
 	   #$REGRESSES
 	   $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
