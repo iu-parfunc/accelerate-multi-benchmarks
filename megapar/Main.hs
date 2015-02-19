@@ -21,35 +21,21 @@ import System.Console.GetOpt
 
 import Criterion.Main
 
+runIt :: Arrays a => Acc a -> a 
+runIt = C.run
+
+
 main :: IO ()
-main =
-  do
-    x <- getArgs
-    case P.length x of
-      0 -> error "at least specify --cuda or --multi" 
-      n -> return ()
-
-    let (a,rest) = parseArgs x
-
-    let runIt :: Arrays a => Acc a -> a 
-        runIt =
-          case a of
-            "cuda"  -> C.run
-            "multi" -> C.runMulti
-            "BAD"   -> error "no backend specified" 
-    
-    putStrLn "benchmark time" 
-    withArgs rest $ 
-       defaultMain [
-         bgroup "megapar" [ bench "1"  $ whnf (runIt . megapar) 1
-                          , bench "2"  $ whnf (runIt . megapar) 2
-                          , bench "3"  $ whnf (runIt . megapar) 3
-                          , bench "4"  $ whnf (runIt . megapar) 4] ]
-                        
+main = defaultMain [  
+        bgroup "megapar" [ bench "1"  $ whnf (runIt . megapar) 1
+                         , bench "2"  $ whnf (runIt . megapar) 2
+                         , bench "3"  $ whnf (runIt . megapar) 3
+                         , bench "4"  $ whnf (runIt . megapar) 4] 
+        ]   
     
         
-parseArgs :: [String] -> (String,[String])
-parseArgs args = (if hasCuda
+parseMyArgs :: [String] -> (String,[String])
+parseMyArgs args = (if hasCuda
                   then "cuda"
                   else
                     if hasMulti

@@ -61,7 +61,8 @@ executable megapar
   build-depends:       base >=4.7 && <4.8
                , accelerate >= 2.0.0.0 
                , accelerate-cuda >= 2.0.0.0
-               , criterion 
+               , accelerate-examples >= 2.0.0.0 
+               , criterion >= 0.5
   
   -- Directories containing source files.
   -- hs-source-dirs:      
