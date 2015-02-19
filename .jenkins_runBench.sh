@@ -137,7 +137,7 @@ function go {
   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
 }
 
-for executable in megapar accelerate-nbody accelerate-mandelbrot ; do 
+for executable in accelerate-nbody accelerate-mandelbrot megapar; do 
   echo "Running benchmark $executable"
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
