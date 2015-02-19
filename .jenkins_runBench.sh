@@ -137,8 +137,8 @@ for executable in accelerate-nbody ; do
  for variant in cuda multi; do 
    for arg in 10000 20000 30000 40000 50000 60000; do
       VARIANT=$variant
-      $BINDIR/accelerate-nbody $REGRESSES --$VARIAN -n $arg --benchmark \
-          --output=$CRITREPORT.html --raw=$CRITREPORT  +RTS -T -s
+      $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
+          -- $REGRESSES --output=$CRITREPORT.html --raw=$CRITREPORT  +RTS -T -s
 
       $CRITUPLOAD --noupload --csv=$CSVREPORT --variant=$VARIANT --threads=1 --args="$arg" $CRITREPORT
       OUTCSVS+=" $CSVREPORT"
