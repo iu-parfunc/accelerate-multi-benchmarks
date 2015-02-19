@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CRITUPLOAD=hsbencher-fusion-upload-criterion-0.3.11
-CSVUPLOAD=hsbencher-fusion-upload-csv-0.3.11
+CRITUPLOAD=hsbencher-fusion-upload-criterion-0.3.10
+CSVUPLOAD=hsbencher-fusion-upload-csv-0.3.10
 CATCSV=cat-csv
 
 # The new new accelerate-multi-benchmarks table 
