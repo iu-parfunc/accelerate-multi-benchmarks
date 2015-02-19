@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CRITUPLOAD=hsbencher-fusion-upload-criterion-0.3.11
-CSVUPLOAD=hsbencher-fusion-upload-csv-0.3.11
+CRITUPLOAD=hsbencher-fusion-upload-criterion-0.3.10
+CSVUPLOAD=hsbencher-fusion-upload-csv-0.3.10
 CATCSV=cat-csv
 
 # The new new accelerate-multi-benchmarks table 
@@ -153,7 +153,7 @@ for executable in megapar accelerate-nbody accelerate-mandelbrot ; do
 	  $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
 	      --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
 	  #$REGRESSES
-	  $CRITUPLOAD --noupload --matchserver --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	  $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
        done  
        ;; 
@@ -163,15 +163,16 @@ for executable in megapar accelerate-nbody accelerate-mandelbrot ; do
 	   $BINDIR/accelerate-mandelbrot  --$VARIANT --width=$arg --height=$arg --benchmark \
 	       --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
 	   #$REGRESSES
-	   $CRITUPLOAD --noupload --matchserver --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	   $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
        done
        ;;
      megapar) 
        for arg in 1 2 3 4; do 
 	   VARIANT=$variant 
-	   $BINDIR/megapar --$VARIANT  -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s 
-	   $CRITUPLOAD --noupload --matchserver --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	   $BINDIR/megapar --$VARIANT  -n $arg --benchmark \ 
+	      --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s 
+	   $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
        done
        ;;
