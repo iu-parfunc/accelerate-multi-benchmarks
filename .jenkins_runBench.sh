@@ -141,7 +141,7 @@ for executable in accelerate-nbody ; do
            --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
       #$REGRESSES
       $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
-      OUTCSVS+=" $CSVREPORT"
+      OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
     done  
   done
 done
