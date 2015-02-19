@@ -138,8 +138,8 @@ for executable in accelerate-nbody ; do
    for arg in 10000 20000 30000 40000 50000 60000; do
       VARIANT=$variant
       $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
-          -- $REGRESSES --output=$CRITREPORT.html --raw=$CRITREPORT  +RTS -T -s
-
+           --output=$CRITREPORT.html --raw=$CRITREPORT  +RTS -T -s
+      #$REGRESSES
       $CRITUPLOAD --noupload --csv=$CSVREPORT --variant=$VARIANT --threads=1 --args="$arg" $CRITREPORT
       OUTCSVS+=" $CSVREPORT"
     done  
