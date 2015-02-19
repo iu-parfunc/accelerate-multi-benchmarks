@@ -4,9 +4,10 @@ CRITUPLOAD=hsbencher-fusion-upload-criterion-0.3.10
 CSVUPLOAD=hsbencher-fusion-upload-csv-0.3.10
 CATCSV=cat-csv
 
-# The new accelerate-multi-benchmarks table 
-# TABID=1giYspfeb2FPqprb7bEkQo-QnqdvXgXCrcH7jF0Ag
+# The new new accelerate-multi-benchmarks table 
+
 TABLENAME=accelerate-multi-benchmarks
+TABID=1DJJM9SI_N8En4-M6mSB67tSerL_laFJ3Dw1evNMW
 
 # Parfunc account, registered app in api console:
 export HSBENCHER_GOOGLE_CLIENTID=905767673358.apps.googleusercontent.com
@@ -151,7 +152,7 @@ ALLREPS=${TAG}_ALLDATA.csv
 $CATCSV $OUTCSVS > $BAKDIR/$ALLREPS
 
 # NOTE: could aggressively retry this, since we're alreday done with the benchmarks:
-$CSVUPLOAD $BAKDIR/$ALLREPS --fusion-upload --name=$TABLENAME || FAILED=1
+$CSVUPLOAD $BAKDIR/$ALLREPS --fusion-upload=$TABID --name=$TABLENAME || FAILED=1
 
 if [ "$FAILED" == 1 ]; then
    mv $BAKDIR/$ALLREPS $FAILDIR/
