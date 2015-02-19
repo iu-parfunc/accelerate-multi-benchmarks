@@ -48,6 +48,8 @@ which c2hs     || echo ok
 c2hs --version || echo ok
 
 which -a nvcc
+#do this properly ?? 
+module add cuda 
 
 nvidia-smi
 
