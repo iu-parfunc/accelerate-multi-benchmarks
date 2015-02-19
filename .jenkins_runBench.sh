@@ -165,6 +165,9 @@ for executable in accelerate-nbody accelerate-mandelbrot ; do
 	   #$REGRESSES
 	   $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
+       done
+       ;;
+    esac
   done
 done
 
