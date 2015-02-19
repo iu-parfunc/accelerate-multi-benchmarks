@@ -168,7 +168,7 @@ for executable in megapar accelerate-nbody accelerate-mandelbrot ; do
        done
        ;;
      megapar) 
-       for arg in 1 2 3 4 ; do 
+       for arg in 1 2 3 4; do 
 	   VARIANT=$variant 
 	   $BINDIR/megapar --$VARIANT 'megapar/$arg' --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s 
 	   $CRITUPLOAD --noupload --matchserver --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
