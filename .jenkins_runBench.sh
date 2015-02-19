@@ -170,7 +170,7 @@ for executable in megapar accelerate-nbody accelerate-mandelbrot ; do
      megapar) 
        for arg in 1 2 3 4; do 
 	   VARIANT=$variant 
-	   $BINDIR/megapar --$VARIANT megapar/$arg --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s 
+	   $BINDIR/megapar --$VARIANT  -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s 
 	   $CRITUPLOAD --noupload --matchserver --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
        done
