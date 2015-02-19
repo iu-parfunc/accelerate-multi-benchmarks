@@ -144,7 +144,7 @@ for executable in accelerate-nbody accelerate-mandelbrot megapar; do
   CSVREPORT=${TAG}_${REPORT}
 
 # case $executable
- for variant in cuda multi; do 
+ for variant in multi cuda; do 
 
    case $executable in 
      accelerate-nbody) 
