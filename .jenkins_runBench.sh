@@ -134,15 +134,16 @@ for executable in accelerate-nbody ; do
   CSVREPORT=${TAG}_${REPORT}.csv
 
 # case $executable
-
-  for arg in 50000 ; do
-      VARIANT=cuda
-      $BINDIR/accelerate-nbody $REGRESSES --$VARIANT -n $arg --benchmark \
+ for variant in cuda multi; do 
+   for arg in 10000 20000 30000 40000 50000 60000; do
+      VARIANT=$variant
+      $BINDIR/accelerate-nbody $REGRESSES --$VARIAN -n $arg --benchmark \
           --output=$CRITREPORT.html --raw=$CRITREPORT  +RTS -T -s
 
       $CRITUPLOAD --noupload --csv=$CSVREPORT --variant=$VARIANT --threads=1 --args="$arg" $CRITREPORT
       OUTCSVS+=" $CSVREPORT"
     done  
+  done
 done
 
 echo "Finally: attempt an upload"
