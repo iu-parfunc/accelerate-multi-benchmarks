@@ -77,8 +77,7 @@ git submodule update --init --recursive
 export GIT_DEPTH=`git log --pretty=oneline | wc -l`
 echo "Running at GIT_DEPTH:" $GIT_DEPTH
 
-TAG="TEST"
-# `date +'%s'`
+TAG=`date +'%s'`
 BAKDIR=$HOME/benchdata_bak/$TABLENAME/depth_${GIT_DEPTH}/
 WINDIR=$BAKDIR/uploaded
 FAILDIR=$BAKDIR/failed_upload
@@ -130,9 +129,9 @@ OUTCSVS=
 
 for executable in accelerate-nbody ; do 
   echo "Running benchmark $executable"
-  REPORT=report_${executable}
-  CRITREPORT=${TAG}_${REPORT}.crit
-  CSVREPORT=${TAG}_${REPORT}.csv
+  REPORT=report${executable}
+  CRITREPORT=${TAG}${REPORT}.crit
+  CSVREPORT=${TAG}${REPORT}.csv
 
 # case $executable
  for variant in cuda multi; do 
