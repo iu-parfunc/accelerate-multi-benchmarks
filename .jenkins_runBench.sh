@@ -66,6 +66,9 @@ set -e
 
 cd "$CHECKOUT"
 
+#is this the directory where everything is ? 
+git submodule update --init --recursive 
+
 export GIT_DEPTH=`git log --pretty=oneline | wc -l`
 echo "Running at GIT_DEPTH:" $GIT_DEPTH
 
