@@ -129,9 +129,9 @@ OUTCSVS=
 
 for executable in accelerate-nbody ; do 
   echo "Running benchmark $executable"
-  REPORT=report${executable}
-  CRITREPORT=${TAG}${REPORT}.crit
-  CSVREPORT=${TAG}${REPORT}.csv
+  REPORT=report_${executable}
+  CRITREPORT=${TAG}_${REPORT}
+  CSVREPORT=${TAG}_${REPORT}
 
 # case $executable
  for variant in cuda multi; do 
@@ -140,7 +140,7 @@ for executable in accelerate-nbody ; do
       $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
            --output="$CRITREPORT.html" --raw="$CRITREPORT"  +RTS -T -s
       #$REGRESSES
-      $CRITUPLOAD --noupload --csv=$CSVREPORT --variant=$VARIANT --threads=1 --args="$arg" $CRITREPORT
+      $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
       OUTCSVS+=" $CSVREPORT"
     done  
   done
