@@ -27,10 +27,10 @@ runIt = C.run
 
 main :: IO ()
 main = defaultMain [  
-        bgroup "megapar" [ bench "1"  $ whnf (runIt . megapar) 1
-                         , bench "2"  $ whnf (runIt . megapar) 2
-                         , bench "3"  $ whnf (runIt . megapar) 3
-                         , bench "4"  $ whnf (runIt . megapar) 4] 
+        bgroup "megapar" [ bench "1"  $ whnf (id) 1
+                         , bench "2"  $ whnf (id) 2
+                         , bench "3"  $ whnf (id) 3
+                         , bench "4"  $ whnf (id) 4] 
         ]   
     
         
