@@ -128,7 +128,16 @@ BINDIR=`pwd`/.cabal-sandbox/bin
 # Accumulator for output names:
 OUTCSVS=
 
-for executable in accelerate-nbody ; do 
+function go {
+  VARIANT=$variant
+  $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
+      --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
+  #$REGRESSES
+  $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
+}
+
+for executable in accelerate-nbody accelerate-mandelbrot ; do 
   echo "Running benchmark $executable"
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
@@ -136,14 +145,26 @@ for executable in accelerate-nbody ; do
 
 # case $executable
  for variant in cuda multi; do 
-   for arg in 10000 20000 30000 40000 50000 60000; do
-      VARIANT=$variant
-      $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
-           --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
-      #$REGRESSES
-      $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
-      OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
-    done  
+
+   case $executable in 
+     accelerate-nbody) 
+       for arg in 10000 20000 30000 40000 50000 60000; do
+	  VARIANT=$variant
+	  $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
+	      --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
+	  #$REGRESSES
+	  $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
+       done  
+       ;; 
+     accelerate-mandelbrot) 
+       for arg in 256 512 1024 2048 4096; do 
+	   VARIANT=$variant
+	   $BINDIR/accelerate-mandel  --$VARIANT --width=$arg --heigh=$arg --benchmark \
+	       --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
+	   #$REGRESSES
+	   $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
   done
 done
 
