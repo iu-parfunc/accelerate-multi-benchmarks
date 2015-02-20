@@ -138,7 +138,8 @@ function go {
   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
 }
 
-for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelbrot ; do 
+# megapar accelerate-crystal
+for executable in  accelerate-nbody accelerate-mandelbrot ; do 
   echo "Running benchmark $executable"
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
@@ -153,9 +154,10 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
 	  VARIANT=$variant
 	  for i in 0 .. $RETRIES; do 
 	    if $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
-	        --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
+	        --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
+	    then break 
+	    else echo "RETRYING" 
 	    fi
-	    echo "RETRYING"
 	    sleep 5
            done
 	  #$REGRESSES
@@ -168,9 +170,10 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
 	   VARIANT=$variant
 	   for i in 0 .. $RETRIES; do 
 	       if $BINDIR/accelerate-mandelbrot  --$VARIANT --width=$arg --height=$arg --benchmark \
-	            --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
+	            --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
+	       then break 
+	       else echo "RETRYING" 
 	       fi
-	       echo "RETRYING"
 	       sleep 5
            done
 	   #$REGRESSES
@@ -184,9 +187,10 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
 	   #if [ $VARIANT != cuda ]; then
 	     for i in 0 .. $RETRIES; do  
 	       if $BINDIR/megapar --$VARIANT  -n $arg --benchmark \
-                   --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
+                   --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
+	       then break
+	       else echo "RETRYING" 
 	       fi
-	       echo "RETRYING"
 	       sleep 5
              done
 	     $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
@@ -200,9 +204,11 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
 	   #if [ $VARIANT != cuda ]; then 
 	     for i in 0 .. $RETRIES; do  
 	       if $BINDIR/accelerate-crystal --$VARIANT  --size=$arg --benchmark \
-                   --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
+                   --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
+	           then break 
+		   else echo "RETRYING"
 	       fi
-	       echo "RETRYING"
+	       
 	       sleep 5
              done
 	     $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
