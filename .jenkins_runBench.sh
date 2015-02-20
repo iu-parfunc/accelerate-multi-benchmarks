@@ -13,7 +13,8 @@ TABID=1DJJM9SI_N8En4-M6mSB67tSerL_laFJ3Dw1evNMW
 export HSBENCHER_GOOGLE_CLIENTID=905767673358.apps.googleusercontent.com
 export HSBENCHER_GOOGLE_CLIENTSECRET=2a2H57dBggubW1_rqglC7jtK
 
-RETRIES=4 
+# try a few time (5, means 6) 
+RETRIES=5
 
 echo "Begin running jenkins benchmark script for Accelerate-multidev..."
 set -x
@@ -155,6 +156,7 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
 	        --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
 	    fi
 	    echo "RETRYING"
+	    sleep 5
            done
 	  #$REGRESSES
 	  $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
@@ -169,6 +171,7 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
 	            --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
 	       fi
 	       echo "RETRYING"
+	       sleep 5
            done
 	   #$REGRESSES
 	   $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
@@ -184,6 +187,7 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
                    --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
 	       fi
 	       echo "RETRYING"
+	       sleep 5
              done
 	     $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	     OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
@@ -193,16 +197,17 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
      accelerate-crystal) 
        for arg in 100 200 300 400; do 
 	   VARIANT=$variant 
-	   if [ $VARIANT != cuda ]; then 
+	   #if [ $VARIANT != cuda ]; then 
 	     for i in 0 .. $RETRIES; do  
 	       if $BINDIR/accelerate-crystal --$VARIANT  --size=$arg --benchmark \
                    --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
 	       fi
 	       echo "RETRYING"
+	       sleep 5
              done
 	     $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	     OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
-	   fi 
+	   #fi 
        done
        ;;
 
