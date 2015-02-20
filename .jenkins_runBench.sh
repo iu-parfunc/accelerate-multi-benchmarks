@@ -13,7 +13,7 @@ TABID=1DJJM9SI_N8En4-M6mSB67tSerL_laFJ3Dw1evNMW
 export HSBENCHER_GOOGLE_CLIENTID=905767673358.apps.googleusercontent.com
 export HSBENCHER_GOOGLE_CLIENTSECRET=2a2H57dBggubW1_rqglC7jtK
 
-
+RETRIES=4 
 
 echo "Begin running jenkins benchmark script for Accelerate-multidev..."
 set -x
@@ -150,8 +150,12 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
      accelerate-nbody) 
        for arg in 10000 20000 30000 40000 50000 60000; do
 	  VARIANT=$variant
-	  $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
-	      --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
+	  for i in 0 .. $RETRIES; do 
+	    if $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
+	        --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
+	    fi
+	    echo "RETRYING"
+           done
 	  #$REGRESSES
 	  $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
@@ -160,8 +164,12 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
      accelerate-mandelbrot) 
        for arg in 256 512 1024 2048 4096; do 
 	   VARIANT=$variant
-	   $BINDIR/accelerate-mandelbrot  --$VARIANT --width=$arg --height=$arg --benchmark \
-	       --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
+	   for i in 0 .. $RETRIES; do 
+	       if $BINDIR/accelerate-mandelbrot  --$VARIANT --width=$arg --height=$arg --benchmark \
+	            --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
+	       fi
+	       echo "RETRYING"
+           done
 	   #$REGRESSES
 	   $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
@@ -170,20 +178,28 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
      megapar) 
        for arg in 1 2 3 4; do 
 	   VARIANT=$variant 
-	   if [ $VARIANT != cuda ]; then 
-	     $BINDIR/megapar --$VARIANT  -n $arg --benchmark \
-                 --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s 
+	   #if [ $VARIANT != cuda ]; then
+	     for i in 0 .. $RETRIES; do  
+	       if $BINDIR/megapar --$VARIANT  -n $arg --benchmark \
+                   --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
+	       fi
+	       echo "RETRYING"
+             done
 	     $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	     OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
-	   fi 
+	   #fi 
        done
        ;;
      accelerate-crystal) 
        for arg in 100 200 300 400; do 
 	   VARIANT=$variant 
 	   if [ $VARIANT != cuda ]; then 
-	     $BINDIR/accelerate-crystal --$VARIANT  --size=$arg --benchmark \
-                 --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s 
+	     for i in 0 .. $RETRIES; do  
+	       if $BINDIR/accelerate-crystal --$VARIANT  --size=$arg --benchmark \
+                   --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; then break 
+	       fi
+	       echo "RETRYING"
+             done
 	     $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	     OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
 	   fi 
