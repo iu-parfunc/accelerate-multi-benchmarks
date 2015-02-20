@@ -149,7 +149,10 @@ function go {
     VARIANT=$variant
     for i in 0 .. $RETRIES; do
 	if $BINDIR/$executable $ARGUMENTS ; 
-	then break 
+	then 
+	  $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${variant}_${arg}.csv --variant=$variant --threads=1 --args="$arg" ${CRITREPORT}_${variant}_${arg}.crit
+	  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"  
+	  break 
 	else echo "RETRYING" 
 	fi
 	#sleep 5
@@ -174,58 +177,64 @@ function go {
 	  #   sleep 5
           #  done
 	  #$REGRESSES
-	  $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
-	  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
+	  #$CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	  #OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
        done  
        ;; 
      accelerate-mandelbrot) 
-       for arg in 256 512 1024 2048 4096; do 
-	   VARIANT=$variant
-	   for i in 0 .. $RETRIES; do 
-	       if $BINDIR/accelerate-mandelbrot  --$VARIANT --width=$arg --height=$arg --benchmark \
-	            --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
-	       then break 
-	       else echo "RETRYING" 
-	       fi
-	       sleep 5
-           done
+       for arg in 256 512 1024 2048 4096; do
+	   ARGUMENTS="--$variant --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	   go;
+	   # VARIANT=$variant
+	   # for i in 0 .. $RETRIES; do 
+	   #     if $BINDIR/accelerate-mandelbrot  --$VARIANT --width=$arg --height=$arg --benchmark \
+	   #          --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
+	   #     then break 
+	   #     else echo "RETRYING" 
+	   #     fi
+	   #     sleep 5
+           # done
 	   #$REGRESSES
-	   $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
-	   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
+	   #$CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	   #OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
        done
        ;;
      megapar) 
        for arg in 1 2 3 4; do 
-	   VARIANT=$variant 
-	   #if [ $VARIANT != cuda ]; then
-	     for i in 0 .. $RETRIES; do  
-	       if $BINDIR/megapar --$VARIANT  -n $arg --benchmark \
-                   --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
-	       then break
-	       else echo "RETRYING" 
-	       fi
-	       sleep 5
-             done
-	     $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
-	     OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
+	   ARGUMENTS="--$variant  -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	   go;
+	   # VARIANT=$variant 
+	   # #if [ $VARIANT != cuda ]; then
+	   #   for i in 0 .. $RETRIES; do  
+	   #     if $BINDIR/megapar --$VARIANT  -n $arg --benchmark \
+           #         --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
+	   #     then break
+	   #     else echo "RETRYING" 
+	   #     fi
+	   #     sleep 5
+           #   done
+	   #$CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	   #OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
 	   #fi 
        done
        ;;
      accelerate-crystal) 
-       for arg in 100 200 300 400; do 
-	   VARIANT=$variant 
-	   #if [ $VARIANT != cuda ]; then 
-	     for i in 0 .. $RETRIES; do  
-	       if $BINDIR/accelerate-crystal --$VARIANT  --size=$arg --benchmark \
-                   --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
-	           then break 
-		   else echo "RETRYING"
-	       fi
+       for arg in 100 200 300 400; do
+	   ARGUMENTS="--$variant  --size=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	   go;
+	   # VARIANT=$variant 
+	   # #if [ $VARIANT != cuda ]; then 
+	   #   for i in 0 .. $RETRIES; do  
+	   #     if $BINDIR/accelerate-crystal --$VARIANT  --size=$arg --benchmark \
+           #         --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
+	   #         then break 
+	   # 	   else echo "RETRYING"
+	   #     fi
 	       
-	       sleep 5
-             done
-	     $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
-	     OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
+	   #     sleep 5
+           #  done
+	   #$CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	   #OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
 	   #fi 
        done
        ;;
