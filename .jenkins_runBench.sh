@@ -182,7 +182,7 @@ for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelb
        for arg in 100 200 300 400; do 
 	   VARIANT=$variant 
 	   if [ $VARIANT != cuda ]; then 
-	     $BINDIR/accelerate-crystal --$VARIANT  -size=$arg --benchmark \
+	     $BINDIR/accelerate-crystal --$VARIANT  --size=$arg --benchmark \
                  --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s 
 	     $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	     OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
