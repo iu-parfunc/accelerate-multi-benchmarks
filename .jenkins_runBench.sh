@@ -129,14 +129,14 @@ BINDIR=`pwd`/.cabal-sandbox/bin
 # Accumulator for output names:
 OUTCSVS=
 
-function go {
-  VARIANT=$variant
-  $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
-      --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
-  #$REGRESSES
-  $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
-  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
-}
+# function go {
+#   VARIANT=$variant
+#   $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
+#       --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
+#   #$REGRESSES
+#   $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+#   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
+# }
 
 # megapar accelerate-crystal
 for executable in  accelerate-nbody accelerate-mandelbrot ; do 
@@ -159,9 +159,8 @@ function go {
     done	
 }
  
-# case $executable
  for variant in cuda multi; do 
-#TODO: Abstract this  
+
    case $executable in 
      accelerate-nbody) 
        for arg in 10000 20000 30000 40000 50000 60000; do
