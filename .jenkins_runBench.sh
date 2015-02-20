@@ -145,21 +145,36 @@ for executable in  accelerate-nbody accelerate-mandelbrot ; do
   CRITREPORT=${TAG}_${REPORT}
   CSVREPORT=${TAG}_${REPORT}
 
+function go {
+    VARIANT=$variant
+    for i in 0 .. $RETRIES; do
+	if $BINDIR/$executable $ARGUMENTS ; 
+	then break 
+	else echo "RETRYING" 
+	fi
+	#sleep 5
+    done	
+}
+ 
 # case $executable
  for variant in cuda multi; do 
 #TODO: Abstract this  
    case $executable in 
      accelerate-nbody) 
        for arg in 10000 20000 30000 40000 50000 60000; do
-	  VARIANT=$variant
-	  for i in 0 .. $RETRIES; do 
-	    if $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
-	        --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
-	    then break 
-	    else echo "RETRYING" 
-	    fi
-	    sleep 5
-           done
+	  ARGUMENTS= --$VARIANT -n $arg --benchmark \
+	    --output=${CRITREPORT}_${VARIANT}_${arg}.html \
+            --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s
+	  go; 
+	  # VARIANT=$variant
+	  # for i in 0 .. $RETRIES; do 
+	  #   if $BINDIR/accelerate-nbody  --$VARIANT -n $arg --benchmark \
+	  #       --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s ; 
+	  #   then break 
+	  #   else echo "RETRYING" 
+	  #   fi
+	  #   sleep 5
+          #  done
 	  #$REGRESSES
 	  $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
