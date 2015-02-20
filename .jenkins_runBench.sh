@@ -137,7 +137,7 @@ function go {
   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
 }
 
-for executable in megapar accelerate-nbody accelerate-mandelbrot ; do 
+for executable in megapar accelerate-crystal accelerate-nbody accelerate-mandelbrot ; do 
   echo "Running benchmark $executable"
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
@@ -145,7 +145,7 @@ for executable in megapar accelerate-nbody accelerate-mandelbrot ; do
 
 # case $executable
  for variant in cuda multi; do 
-
+#TODO: Abstract this  
    case $executable in 
      accelerate-nbody) 
        for arg in 10000 20000 30000 40000 50000 60000; do
@@ -178,6 +178,18 @@ for executable in megapar accelerate-nbody accelerate-mandelbrot ; do
 	   fi 
        done
        ;;
+     accelerate-crystal) 
+       for arg in 100 200 300 400; do 
+	   VARIANT=$variant 
+	   if [ $VARIANT != cuda ]; then 
+	     $BINDIR/accelerate-crystal --$VARIANT  -size=$arg --benchmark \
+                 --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s 
+	     $CRITUPLOAD --noupload --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	     OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
+	   fi 
+       done
+       ;;
+
     esac
   done
 done
