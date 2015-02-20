@@ -162,9 +162,7 @@ function go {
    case $executable in 
      accelerate-nbody) 
        for arg in 10000 20000 30000 40000 50000 60000; do
-	  ARGUMENTS= '--$VARIANT -n $arg --benchmark \
-	    --output=${CRITREPORT}_${VARIANT}_${arg}.html \
-            --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s'
+	  ARGUMENTS= '--$VARIANT -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s'
 	  go; 
 	  # VARIANT=$variant
 	  # for i in 0 .. $RETRIES; do 
