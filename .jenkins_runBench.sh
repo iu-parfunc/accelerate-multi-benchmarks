@@ -139,7 +139,7 @@ OUTCSVS=
 # }
 
 # megapar accelerate-crystal
-for executable in  megapar accelerate-nbody accelerate-mandelbrot ; do 
+for executable in  megapar accelerate-nbody accelerate-mandelbrot accelerate-crystal; do 
   echo "Running benchmark $executable"
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
