@@ -138,16 +138,11 @@ OUTCSVS=
 #   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
 # }
 
-# megapar accelerate-crystal
-for executable in  megapar accelerate-nbody-duped accelerate-mandelbrot accelerate-crystal; do 
-  echo "Running benchmark $executable"
-  REPORT=report_${executable}
-  CRITREPORT=${TAG}_${REPORT}
-  CSVREPORT=${TAG}_${REPORT}
+ENVIRONMENT=""
 
 function go {
     for i in 0 .. $RETRIES; do
-	if $BINDIR/$executable $ARGUMENTS ; 
+	if $ENVIRONMENT $BINDIR/$executable $ARGUMENTS ; 
 	then 
 	  $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"  
@@ -157,6 +152,14 @@ function go {
 	#sleep 5
     done	
 }
+
+
+# megapar accelerate-crystal
+for executable in  megapar accelerate-nbody-duped accelerate-mandelbrot accelerate-crystal; do 
+  echo "Running benchmark $executable"
+  REPORT=report_${executable}
+  CRITREPORT=${TAG}_${REPORT}
+  CSVREPORT=${TAG}_${REPORT}
 
 ## #########################################
 ## RUN UNFISSED BENCHMARKS ON CUDA AND MULTI  
@@ -214,6 +217,42 @@ for executable in accelerate-nbody-duped; do
   done
 done   
 	  
+## #####################
+## RUN FISSED BENCHMARKS 
+for executable in accelerate-nbody; do 
+  echo "Running fissioned benchmarks"  
+  REPORT=report_${executable}
+  CRITREPORT=${TAG}_${REPORT}
+  CSVREPORT=${TAG}_${REPORT}
+  
+  for fission in "" FISSED; do 
+  ## backend multi:  one device! 
+    ENVIRONMENT="FISSED MULTI_USE_DEVICE=0"
+    VARIANT=multi_one_device$(fission)
+    case $executable in 
+      accelerate-nbody) 
+        for arg in 10000 20000 30000 40000 50000 60000; do 
+	  ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	  go; 
+          done  
+       ;;
+      esac
+  
+  ## backend multi: two devices!
+    ENVIRONMENT="FISSED MULTI_USE_DEVICE='0 1'"
+    VARIANT=multi_two_device$(fission)
+    case $executable in 
+      accelerate-nbody) 
+        for arg in 10000 20000 30000 40000 50000 60000; do 
+	  ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	  go; 
+          done  
+       ;;
+      esac    
+  done
+done    
+  
+      
 
    
 echo "Finally: attempt an upload"
