@@ -138,11 +138,11 @@ OUTCSVS=
 #   OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"
 # }
 
-ENVIRONMENT=""
+
 
 function go {
     for i in 0 .. $RETRIES; do
-	if $ENVIRONMENT $BINDIR/$executable $ARGUMENTS ; 
+	if $BINDIR/$executable $ARGUMENTS ; 
 	then 
 	  $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"  
@@ -225,32 +225,53 @@ for executable in accelerate-nbody; do
   CRITREPORT=${TAG}_${REPORT}
   CSVREPORT=${TAG}_${REPORT}
   
-  for fission in "" "FISSED=1"; do 
+  ## FISSED 
   ## backend multi:  one device! 
-    ENVIRONMENT=$fission "MULTI_USE_DEVICE=0"
-    VARIANT=multi_one_device$fission
-    case $executable in 
-      accelerate-nbody) 
-        for arg in 10000 20000 30000 40000 50000 60000; do 
-	  ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	  go; 
-          done  
-       ;;
-      esac
-  
+  VARIANT=multi_one_device_fissed
+  case $executable in 
+    accelerate-nbody) 
+      for arg in 10000 20000 30000 40000 50000 60000; do 
+	ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	(FISSION=1 MULTI_USE_DEVICE=0; go); 
+      done  
+     ;;
+  esac
+  ## FISSED 
   ## backend multi: two devices!
-    ENVIRONMENT="FISSED MULTI_USE_DEVICE='0 1'"
-    VARIANT=multi_two_device$fission
-    case $executable in 
-      accelerate-nbody) 
-        for arg in 10000 20000 30000 40000 50000 60000; do 
-	  ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	  go; 
-          done  
-       ;;
-      esac    
-  done
-done    
+  VARIANT=multi_two_device_fissed
+  case $executable in 
+    accelerate-nbody) 
+      for arg in 10000 20000 30000 40000 50000 60000; do 
+        ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	(FISSION=1 MULTI_USE_DEVICE='0 1'; go); 
+      done  
+     ;;
+  esac    
+
+  ## UNFISSED 
+  ## backend multi:  one device! 
+  VARIANT=multi_one_device_fissed
+  case $executable in 
+    accelerate-nbody) 
+      for arg in 10000 20000 30000 40000 50000 60000; do 
+	ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	(MULTI_USE_DEVICE=0; go); 
+      done  
+     ;;
+  esac
+  ## UNFISSED 
+  ## backend multi: two devices!
+  VARIANT=multi_two_device_fissed
+  case $executable in 
+    accelerate-nbody) 
+      for arg in 10000 20000 30000 40000 50000 60000; do 
+        ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	(MULTI_USE_DEVICE='0 1'; go); 
+      done  
+     ;;
+  esac    
+done
+
   
       
 
