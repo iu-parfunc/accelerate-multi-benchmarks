@@ -173,25 +173,25 @@ for executable in  megapar accelerate-nbody accelerate-mandelbrot accelerate-cry
      accelerate-nbody)  	   
        for arg in 10000 20000 30000 40000 50000 60000; do
 	  ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
-	  go; 
+	  go 0; 
        done  
        ;; 
      accelerate-mandelbrot) 
        for arg in 256 512 1024 2048 4096; do
 	   ARGUMENTS="--$variant --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
-	   go;
+	   go 0;
        done
        ;;
      megapar) 
        for arg in 1 2 3 4; do 
 	   ARGUMENTS="--$variant  -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
-	   go;
+	   go 0;
        done
        ;;
      accelerate-crystal) 
        for arg in 100 200 300 400; do
 	   ARGUMENTS="--$variant  --size=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
-	   go;
+	   go 0;
        done
        ;;
     esac
@@ -213,7 +213,7 @@ for executable in accelerate-nbody-duped; do
         accelerate-nbody-duped)  	   
           for arg in 10000 20000 30000 40000 50000 60000; do
 	    ARGUMENTS="--$variant -n $arg $duped --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	    go; 
+	    go 0; 
           done  
        ;;
       esac
@@ -247,7 +247,7 @@ for executable in accelerate-nbody; do
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-        go 1 "0 1"; 
+        go 1 '0 1'; 
       done  
      ;;
   esac    
@@ -270,7 +270,7 @@ for executable in accelerate-nbody; do
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	go 0 "0 1";
+	go 0 '0 1';
       done  
      ;;
   esac    
