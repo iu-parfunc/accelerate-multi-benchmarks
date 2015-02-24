@@ -1,4 +1,4 @@
-1#!/bin/bash
+#!/bin/bash
 
 CRITUPLOAD=hsbencher-fusion-upload-criterion-0.3.10
 CSVUPLOAD=hsbencher-fusion-upload-csv-0.3.10
