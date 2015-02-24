@@ -142,7 +142,7 @@ OUTCSVS=
 
 function go {
     export FISSION=$1
-    export MULTI_USE_DEVICE=$2
+    export MULTI_USE_DEVICES=$2
     echo "FISSION: ${FISSION}"
     echo "MULTI_USE_DEVICE: ${MULTI_USE_DEVICE}"
     for i in 0 .. $RETRIES; do
