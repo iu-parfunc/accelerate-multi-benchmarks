@@ -141,8 +141,10 @@ OUTCSVS=
 
 
 function go {
-    echo "FISSION: $FISSION"
-    echo "MULTI_USE_DEVICE: $MULTI_USE_DEVICE"
+    export FISSION=$1
+    export MULTI_USE_DEVICE=$2
+    echo "FISSION: ${FISSION}"
+    echo "MULTI_USE_DEVICE: ${MULTI_USE_DEVICE}"
     for i in 0 .. $RETRIES; do
 	if $BINDIR/$executable $ARGUMENTS ; 
 	then 
@@ -230,26 +232,22 @@ for executable in accelerate-nbody; do
   ## FISSED 
   ## backend multi:  one device! 
   VARIANT=multi_one_device_fissed
-  export FISSION=1 
-  export MULTI_USE_DEVICE=0 
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
 	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	go;
+	go 1 0;
       done  
      ;;
   esac
   ## FISSED 
   ## backend multi: two devices!
   VARIANT=multi_two_device_fissed
-  export FISSION=1 
-  export MULTI_USE_DEVICE="0 1"
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-        go; 
+        go 1 "0 1"; 
       done  
      ;;
   esac    
@@ -257,26 +255,22 @@ for executable in accelerate-nbody; do
   ## UNFISSED 
   ## backend multi:  one device! 
   VARIANT=multi_one_device_unfissed
-  export FISSION=0
-  export MULTI_USE_DEVICE=0 
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
 	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-        go;
+        go 0 0;
       done  
      ;;
   esac
   ## UNFISSED 
   ## backend multi: two devices!
   VARIANT=multi_two_device_unfissed
-  export FISSION=0
-  export MULTI_USE_DEVICE="0 1"
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	go;
+	go 0 "0 1";
       done  
      ;;
   esac    
