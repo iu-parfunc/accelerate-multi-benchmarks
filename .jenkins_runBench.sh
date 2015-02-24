@@ -141,6 +141,8 @@ OUTCSVS=
 
 
 function go {
+    echo "FISSION: $FISSION"
+    echo "MULTI_USE_DEVICE: $MULTI_USE_DEVICE"
     for i in 0 .. $RETRIES; do
 	if $BINDIR/$executable $ARGUMENTS ; 
 	then 
@@ -228,12 +230,12 @@ for executable in accelerate-nbody; do
   ## FISSED 
   ## backend multi:  one device! 
   VARIANT=multi_one_device_fissed
+  export FISSION=1 
+  export MULTI_USE_DEVICE=0 
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
 	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	export FISSION=1 
-	export MULTI_USE_DEVICE=0 
 	go;
       done  
      ;;
@@ -241,13 +243,12 @@ for executable in accelerate-nbody; do
   ## FISSED 
   ## backend multi: two devices!
   VARIANT=multi_two_device_fissed
+  export FISSION=1 
+  export MULTI_USE_DEVICE="0 1"
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-        ## SET THESE ENV VARIABLES 
-	export FISSION=1 
-        export MULTI_USE_DEVICE='0 1' 
         go; 
       done  
      ;;
@@ -256,13 +257,12 @@ for executable in accelerate-nbody; do
   ## UNFISSED 
   ## backend multi:  one device! 
   VARIANT=multi_one_device_unfissed
+  export FISSION=0
+  export MULTI_USE_DEVICE=0 
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
 	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	## UNSET FISSION, USE DEVICE 0
-	export FISSION=0
-        export MULTI_USE_DEVICE=0 
         go;
       done  
      ;;
@@ -270,13 +270,12 @@ for executable in accelerate-nbody; do
   ## UNFISSED 
   ## backend multi: two devices!
   VARIANT=multi_two_device_unfissed
+  export FISSION=0
+  export MULTI_USE_DEVICE="0 1"
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	## ENVIRONMENT
-	export FISSION=0
-	export MULTI_USE_DEVICE='0 1' 
 	go;
       done  
      ;;
