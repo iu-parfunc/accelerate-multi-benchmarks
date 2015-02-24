@@ -171,7 +171,7 @@ for executable in  megapar accelerate-nbody accelerate-mandelbrot accelerate-cry
    VARIANT=$variant 
    case $executable in 
      accelerate-nbody)  	   
-       for arg in 10000 20000 30000 40000 50000 60000; do
+       for arg in 50000 60000 70000 80000 90000 100000; do
 	  ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
 	  go 0; 
        done  
@@ -211,7 +211,7 @@ for executable in accelerate-nbody-duped; do
       VARIANT=$variant$duped 
       case $executable in 
         accelerate-nbody-duped)  	   
-          for arg in 10000 20000 30000 40000 50000 60000; do
+          for arg in 50000 60000 70000 80000 90000 100000; do
 	    ARGUMENTS="--$variant -n $arg $duped --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
 	    go 0; 
           done  
@@ -234,22 +234,34 @@ for executable in accelerate-nbody; do
   VARIANT=multi_one_device_fissed
   case $executable in 
     accelerate-nbody) 
-      for arg in 10000 20000 30000 40000 50000 60000; do 
+      for arg in 50000 60000 70000 80000 90000 100000; do 
 	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
 	go 1 0;
       done  
      ;;
+    accelerate-mandelbrot) 
+      for arg in 256 512 1024 2048 4096; do
+	  ARGUMENTS="--multi --$variant --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	  go 1 0;
+      done
+      ;;
   esac
   ## FISSED 
   ## backend multi: two devices!
   VARIANT=multi_two_device_fissed
   case $executable in 
     accelerate-nbody) 
-      for arg in 10000 20000 30000 40000 50000 60000; do 
+      for arg in 50000 60000 70000 80000 90000 100000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
         go 1 '0 1'; 
       done  
      ;;
+    accelerate-mandelbrot) 
+      for arg in 256 512 1024 2048 4096; do
+	  ARGUMENTS="--multi --$variant --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	  go 1 '0 1';
+      done
+      ;;
   esac    
 
   ## UNFISSED 
@@ -257,22 +269,36 @@ for executable in accelerate-nbody; do
   VARIANT=multi_one_device_unfissed
   case $executable in 
     accelerate-nbody) 
-      for arg in 10000 20000 30000 40000 50000 60000; do 
+      for arg in 50000 60000 70000 80000 90000 100000; do 
 	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
         go 0 0;
       done  
      ;;
+    accelerate-mandelbrot) 
+      for arg in 256 512 1024 2048 4096; do
+	  ARGUMENTS="--multi --$variant --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	  go 0 0;
+      done
+      ;;
+
   esac
   ## UNFISSED 
   ## backend multi: two devices!
   VARIANT=multi_two_device_unfissed
   case $executable in 
     accelerate-nbody) 
-      for arg in 10000 20000 30000 40000 50000 60000; do 
+      for arg in 50000 60000 70000 80000 90000 100000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
 	go 0 '0 1';
       done  
      ;;
+    accelerate-mandelbrot) 
+      for arg in 256 512 1024 2048 4096; do
+	  ARGUMENTS="--multi --$variant --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	  go 0 '0 1';
+      done
+      ;;
+
   esac    
 done
 
