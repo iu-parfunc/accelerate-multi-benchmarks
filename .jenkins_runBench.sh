@@ -1,4 +1,4 @@
-#!/bin/bash
+1#!/bin/bash
 
 CRITUPLOAD=hsbencher-fusion-upload-criterion-0.3.10
 CSVUPLOAD=hsbencher-fusion-upload-csv-0.3.10
@@ -144,7 +144,7 @@ function go {
     export FISSION=$1
     export MULTI_USE_DEVICES=$2
     echo "FISSION: ${FISSION}"
-    echo "MULTI_USE_DEVICE: ${MULTI_USE_DEVICE}"
+    echo "MULTI_USE_DEVICES: ${MULTI_USE_DEVICES}"
     for i in 0 .. $RETRIES; do
 	if $BINDIR/$executable $ARGUMENTS ; 
 	then 
