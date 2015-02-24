@@ -228,7 +228,7 @@ for executable in accelerate-nbody; do
   for fission in "" FISSED; do 
   ## backend multi:  one device! 
     ENVIRONMENT="FISSED MULTI_USE_DEVICE=0"
-    VARIANT=multi_one_device$(fission)
+    VARIANT=multi_one_device$fission
     case $executable in 
       accelerate-nbody) 
         for arg in 10000 20000 30000 40000 50000 60000; do 
@@ -240,7 +240,7 @@ for executable in accelerate-nbody; do
   
   ## backend multi: two devices!
     ENVIRONMENT="FISSED MULTI_USE_DEVICE='0 1'"
-    VARIANT=multi_two_device$(fission)
+    VARIANT=multi_two_device$fission
     case $executable in 
       accelerate-nbody) 
         for arg in 10000 20000 30000 40000 50000 60000; do 
