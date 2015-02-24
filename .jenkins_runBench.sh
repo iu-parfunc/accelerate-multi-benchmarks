@@ -261,7 +261,7 @@ for executable in accelerate-nbody; do
       for arg in 10000 20000 30000 40000 50000 60000; do 
 	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
 	## UNSET FISSION, USE DEVICE 0
-	unset FISSION 
+	FISSION=0
         MULTI_USE_DEVICE=0 
         go;
       done  
@@ -275,7 +275,7 @@ for executable in accelerate-nbody; do
       for arg in 10000 20000 30000 40000 50000 60000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
 	## ENVIRONMENT
-	unset FISSION 
+	FISSION=0
 	MULTI_USE_DEVICE='0 1' 
 	go;
       done  
