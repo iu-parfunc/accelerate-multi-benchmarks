@@ -231,8 +231,10 @@ for executable in accelerate-nbody; do
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
-	ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	(FISSION=1 MULTI_USE_DEVICE=0; go); 
+	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	set FISSION;
+	set MULTI_USE_DEVICE=0;
+	go;
       done  
      ;;
   esac
@@ -242,8 +244,10 @@ for executable in accelerate-nbody; do
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
-        ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	(FISSION=1 MULTI_USE_DEVICE='0 1'; go); 
+        ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	set FISSION=1 ;
+	set MULTI_USE_DEVICE='0 1';
+        go; 
       done  
      ;;
   esac    
@@ -254,8 +258,10 @@ for executable in accelerate-nbody; do
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
-	ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	(MULTI_USE_DEVICE=0; go); 
+	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	unset FISSION;
+	set MULTI_USE_DEVICE=0;
+	go;
       done  
      ;;
   esac
@@ -265,8 +271,10 @@ for executable in accelerate-nbody; do
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
-        ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
-	(MULTI_USE_DEVICE='0 1'; go); 
+        ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	unset FISSION;
+	set MULTI_USE_DEVICE='0 1';
+	go;
       done  
      ;;
   esac    
