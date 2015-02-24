@@ -254,7 +254,7 @@ for executable in accelerate-nbody; do
 
   ## UNFISSED 
   ## backend multi:  one device! 
-  VARIANT=multi_one_device_fissed
+  VARIANT=multi_one_device_unfissed
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
@@ -267,7 +267,7 @@ for executable in accelerate-nbody; do
   esac
   ## UNFISSED 
   ## backend multi: two devices!
-  VARIANT=multi_two_device_fissed
+  VARIANT=multi_two_device_unfissed
   case $executable in 
     accelerate-nbody) 
       for arg in 10000 20000 30000 40000 50000 60000; do 
