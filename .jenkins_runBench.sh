@@ -225,9 +225,9 @@ for executable in accelerate-nbody; do
   CRITREPORT=${TAG}_${REPORT}
   CSVREPORT=${TAG}_${REPORT}
   
-  for fission in "" FISSED; do 
+  for fission in "" "FISSED=1"; do 
   ## backend multi:  one device! 
-    ENVIRONMENT="FISSED MULTI_USE_DEVICE=0"
+    ENVIRONMENT=$fission "MULTI_USE_DEVICE=0"
     VARIANT=multi_one_device$fission
     case $executable in 
       accelerate-nbody) 
