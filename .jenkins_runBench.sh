@@ -155,7 +155,7 @@ function go {
 
 
 # megapar accelerate-crystal
-for executable in  megapar accelerate-nbody-duped accelerate-mandelbrot accelerate-crystal; do 
+for executable in  megapar accelerate-nbody accelerate-mandelbrot accelerate-crystal; do 
   echo "Running benchmark $executable"
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
