@@ -159,7 +159,7 @@ function go {
 
 
 # megapar accelerate-crystal
-for executable in accelerate-nbody accelerate-mandelbrot accelerate-crystal; do 
+for executable in accelerate-nbody accelerate-mandelbrot; do 
   echo "Running benchmark $executable"
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
@@ -223,7 +223,7 @@ done
 
 ## #####################
 ## RUN FISSED BENCHMARKS 
-for executable in accelerate-nbody accelerate-mandelbrot accelerate-crystal; do 
+for executable in accelerate-nbody accelerate-mandelbrot; do 
   echo "Running fissioned benchmarks"  
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
