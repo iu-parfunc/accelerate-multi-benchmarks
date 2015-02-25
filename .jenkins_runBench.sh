@@ -148,7 +148,7 @@ function go {
     for i in 0 .. $RETRIES; do
 	if $BINDIR/$executable $ARGUMENTS ; 
 	then 
-	  $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --time-limit=60 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
+	  $CRITUPLOAD --noupload  --csv=${CSVREPORT}_${VARIANT}_${arg}.csv --variant=$VARIANT --threads=1 --args="$arg" ${CRITREPORT}_${VARIANT}_${arg}.crit
 	  OUTCSVS+=" ${CSVREPORT}_${VARIANT}_${arg}.csv"  
 	  break 
 	else echo "RETRYING" 
@@ -172,25 +172,25 @@ for executable in  megapar accelerate-nbody accelerate-mandelbrot accelerate-cry
    case $executable in 
      accelerate-nbody)  	   
        for arg in 50000 60000 70000 80000 90000 100000 110000; do
-	  ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	  ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  --time-limit=60 +RTS -T -s"
 	  go 0; 
        done  
        ;; 
      accelerate-mandelbrot) 
        for arg in 256 512 1024 2048 4096 8192 16384; do
-	   ARGUMENTS="--$variant --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	   ARGUMENTS="--$variant --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  --time-limit=60 +RTS -T -s"
 	   go 0;
        done
        ;;
      megapar) 
        for arg in 1 2 3 4; do 
-	   ARGUMENTS="--$variant  -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	   ARGUMENTS="--$variant  -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  --time-limit=60 +RTS -T -s"
 	   go 0;
        done
        ;;
      accelerate-crystal) 
        for arg in 100 200 300 400 500; do
-	   ARGUMENTS="--$variant  --size=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
+	   ARGUMENTS="--$variant  --size=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit --time-limit=60 +RTS -T -s"
 	   go 0;
        done
        ;;
@@ -212,7 +212,7 @@ done
 #       case $executable in 
 #         accelerate-nbody-duped)  	   
 #           for arg in 50000 60000 70000 80000 90000 100000; do
-# 	    ARGUMENTS="--$variant -n $arg $duped --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+# 	    ARGUMENTS="--$variant -n $arg $duped --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  --time-limit=60 +RTS -T -s"
 # 	    go 0; 
 #           done  
 #        ;;
@@ -235,19 +235,19 @@ for executable in accelerate-nbody accelerate-mandelbrot; do
   case $executable in 
     accelerate-nbody) 
       for arg in 50000 60000 70000 80000 90000 100000 110000; do 
-	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit --time-limit=60 +RTS -T -s"
 	go 1 0;
       done  
      ;;
     accelerate-mandelbrot) 
       for arg in 256 512 1024 2048 4096; do
-	  ARGUMENTS="--multi --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	  ARGUMENTS="--multi --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  --time-limit=60 +RTS -T -s"
 	  go 1 0;
       done
       ;;
     accelerate-crystal) 
       for arg in 100 200 300 400 500; do
-	  ARGUMENTS="--multi --size=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  +RTS -T -s"
+	  ARGUMENTS="--multi --size=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  --time-limit=60 +RTS -T -s"
 	  go 1 0;
       done
       ;;
@@ -258,19 +258,19 @@ for executable in accelerate-nbody accelerate-mandelbrot; do
   case $executable in 
     accelerate-nbody) 
       for arg in 50000 60000 70000 80000 90000 100000 110000; do 
-        ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  --time-limit=60 +RTS -T -s"
+        ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  --time-limit=60 --time-limit=60 +RTS -T -s"
         go 1 '0 1'; 
       done  
      ;;
     accelerate-mandelbrot) 
       for arg in 256 512 1024 2048 4096; do
-	  ARGUMENTS="--multi --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	  ARGUMENTS="--multi --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit --time-limit=60 +RTS -T -s"
 	  go 1 '0 1';
       done
       ;;
     accelerate-crystal) 
       for arg in 100 200 300 400 500; do
-	  ARGUMENTS="--multi --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	  ARGUMENTS="--multi --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit --time-limit=60 +RTS -T -s"
 	  go 1 '0 1';
       done
       ;;
@@ -282,19 +282,19 @@ for executable in accelerate-nbody accelerate-mandelbrot; do
   case $executable in 
     accelerate-nbody) 
       for arg in 50000 60000 70000 80000 90000 100000 110000; do 
-	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit --time-limit=60 +RTS -T -s"
         go 0 0;
       done  
      ;;
     accelerate-mandelbrot) 
       for arg in 256 512 1024 2048 4096; do
-	  ARGUMENTS="--multi --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	  ARGUMENTS="--multi --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  --time-limit=60 +RTS -T -s"
 	  go 0 0;
       done
       ;;
     accelerate-crystal) 
       for arg in 100 200 300 400 500; do
-	  ARGUMENTS="--multi --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	  ARGUMENTS="--multi --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  --time-limit=60 +RTS -T -s"
 	  go 0 0;
       done
       ;;
@@ -306,19 +306,19 @@ for executable in accelerate-nbody accelerate-mandelbrot; do
   case $executable in 
     accelerate-nbody) 
       for arg in 50000 60000 70000 80000 90000 100000 110000; do 
-        ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+        ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  --time-limit=60 +RTS -T -s"
 	go 0 '0 1';
       done  
      ;;
     accelerate-mandelbrot) 
       for arg in 256 512 1024 2048 4096; do
-	  ARGUMENTS="--multi --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  +RTS -T -s"
+	  ARGUMENTS="--multi --width=$arg --height=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  --time-limit=60 +RTS -T -s"
 	  go 0 '0 1';
       done
       ;;
     accelerate-crystal) 
       for arg in 100 200 300 400 500; do
-	  ARGUMENTS="--multi  --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${VARIANT}_${variant}_${arg}.crit  +RTS -T -s"
+	  ARGUMENTS="--multi  --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${VARIANT}_${variant}_${arg}.crit  --time-limit=60 +RTS -T -s"
 	  go 0 '0 1';
       done
       ;;
