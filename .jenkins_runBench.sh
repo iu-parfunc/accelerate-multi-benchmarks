@@ -159,7 +159,7 @@ function go {
 
 
 # megapar accelerate-crystal
-for executable in accelerate-blackscholes; do 
+for executable in accelerate-nbody accelerate-blackscholes accelerate-dotp; do 
   echo "Running benchmark $executable"
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
@@ -195,6 +195,12 @@ for executable in accelerate-blackscholes; do
        done
        ;;
      accelerate-blackscholes) 
+       for arg in 50000 60000 70000 80000 90000 100000; do
+	   ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
+	   go 0;
+       done
+       ;;
+     accelerate-dotp) 
        for arg in 5000 6000 7000 8000 9000 10000; do
 	   ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
 	   go 0;
@@ -258,6 +264,12 @@ for executable in accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
+      for arg in 50000 60000 70000 80000 90000 100000; do
+	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	  go 1 0;
+      done
+      ;;
+    accelerate-dotp) 
       for arg in 5000 6000 7000 8000 9000 10000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 0;
@@ -287,6 +299,12 @@ for executable in accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
+      for arg in 50000 60000 70000 80000 90000 100000; do
+	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	  go 1 '0 1';
+      done
+      ;;
+    accelerate-dotp) 
       for arg in 5000 6000 7000 8000 9000 10000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 '0 1';
@@ -317,12 +335,17 @@ for executable in accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
+      for arg in 50000 60000 70000 80000 90000 100000; do
+	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	  go 0 0;
+      done
+      ;;
+    accelerate-dotp) 
       for arg in 5000 6000 7000 8000 9000 10000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 0;
       done
       ;;
-
   esac
   ## UNFISSED 
   ## backend multi: two devices!
@@ -347,6 +370,12 @@ for executable in accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
+      for arg in 50000 60000 70000 80000 90000 100000; do
+	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	  go 0 '0 1';
+      done
+      ;;
+    accelerate-dotp) 
       for arg in 5000 6000 7000 8000 9000 10000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 '0 1';
