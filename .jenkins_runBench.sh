@@ -196,7 +196,7 @@ for executable in accelerate-nbody accelerate-blackscholes; do
        ;;
      accelerate-blackscholes) 
        for arg in 1000 2000 3000 4000 5000; do
-	   ARGUMENTS="--$variant  -n=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
+	   ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
 	   go 0;
        done
        ;;
