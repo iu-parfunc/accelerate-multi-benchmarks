@@ -16,5 +16,5 @@ fi
 
 PKGS="./Accelerate/ ./Accelerate-cuda/ ./Accelerate-examples/ ./Accelerate-io/ ./accelerate-fft/ ./cuda/ ./gloss/gloss/ ./gloss/gloss-raster/ ./gloss/gloss-rendering/ ./gloss-raster-accelerate/ ./gloss-accelerate/"
 
-$CABAL install -fMULTI -fcuda $PKGS 
-#-j --ghc-option=-j3
+$CABAL install -fMULTI -fcuda $PKGS $*
+
