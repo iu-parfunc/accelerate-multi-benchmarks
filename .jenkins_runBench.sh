@@ -184,7 +184,7 @@ for executable in accelerate-nbody accelerate-blackscholes; do
        ;;
      megapar) 
        for arg in 1 2 3 4; do 
-     	   ARGUMENTS="--$variant  -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  --time-limit=60 +RTS -T -s"
+     	   ARGUMENTS="--$variant  -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
      	   go 0;
        done
        ;;
@@ -218,7 +218,7 @@ done
 #       case $executable in 
 #         accelerate-nbody-duped)  	   
 #           for arg in 50000 60000 70000 80000 90000 100000; do
-# 	    ARGUMENTS="--$variant -n $arg $duped --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  --time-limit=60 +RTS -T -s"
+# 	    ARGUMENTS="--$variant -n $arg $duped --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 # 	    go 0; 
 #           done  
 #        ;;
@@ -270,7 +270,7 @@ for executable in accelerate-nbody accelerate-blackscholes; do
   case $executable in 
     accelerate-nbody) 
       for arg in 50000 60000 70000 80000 90000 100000 110000; do 
-        ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit  --time-limit=60 +RTS -T -s"
+        ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
         go 1 '0 1'; 
       done  
      ;;
