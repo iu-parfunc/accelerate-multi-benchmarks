@@ -219,26 +219,29 @@ done
 
 ## ################################
 ## SPECIAL HANDLING FOR DUPED BENCH
-# for executable in accelerate-nbody-duped; do
-#   echo "Running DUPED benchmark $executable"
-#   REPORT=report_${executable}
-#   CRITREPORT=${TAG}_${REPORT}
-#   CSVREPORT=${TAG}_${REPORT}
 
-#   for duped in "" --duped; do 
-#     for variant in cuda multi; do 
-#       VARIANT=$variant$duped 
-#       case $executable in 
-#         accelerate-nbody-duped)  	   
-#           for arg in 50000 60000 70000 80000 90000 100000; do
-# 	    ARGUMENTS="--$variant -n $arg $duped --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
-# 	    go 0; 
-#           done  
-#        ;;
-#       esac
-#     done
-#   done
-# done   
+## the duped nbody is different from nbody above, 
+## even if run on cuda backed or in "unduped" mode 
+for executable in $EXTRAARGS; do
+  echo "Running DUPED benchmark $executable"
+  REPORT=report_${executable}
+  CRITREPORT=${TAG}_${REPORT}
+  CSVREPORT=${TAG}_${REPORT}
+
+  for duped in "" --duped; do 
+    for variant in cuda multi; do 
+      VARIANT=$variant$duped 
+      case $executable in 
+        accelerate-nbody-duped)  	   
+          for arg in 50000 60000 70000 80000 90000 100000 110000; do
+	    ARGUMENTS="--$variant -n $arg $duped --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	    go 0; 
+          done  
+       ;;
+      esac
+    done
+  done
+done   
 
 ## #####################
 ## RUN FISSED BENCHMARKS 
