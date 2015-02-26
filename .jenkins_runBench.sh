@@ -182,12 +182,12 @@ for executable in accelerate-nbody accelerate-blackscholes; do
 	   go 0;
        done
        ;;
-     # megapar) 
-     #   for arg in 1 2 3 4; do 
-     # 	   ARGUMENTS="--$variant  -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  --time-limit=60 +RTS -T -s"
-     # 	   go 0;
-     #   done
-     #   ;;
+     megapar) 
+       for arg in 1 2 3 4; do 
+     	   ARGUMENTS="--$variant  -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit  --time-limit=60 +RTS -T -s"
+     	   go 0;
+       done
+       ;;
      accelerate-crystal) 
        for arg in 100 200 300 400 500; do
 	   ARGUMENTS="--$variant  --size=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
@@ -342,7 +342,7 @@ for executable in accelerate-nbody accelerate-blackscholes; do
       ;;
     accelerate-crystal) 
       for arg in 100 200 300 400 500; do
-	  ARGUMENTS="--multi  --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
+	  ARGUMENTS="--multi  --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 '0 1';
       done
       ;;
