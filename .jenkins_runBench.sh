@@ -168,7 +168,7 @@ for executable in $EXTRAARGS; do
 
 ## #########################################
 ## RUN UNFISSED BENCHMARKS ON CUDA AND MULTI  
- for variant in cuda; do
+ for variant in cuda multi; do
    VARIANT=$variant 
    case $executable in 
      accelerate-nbody)  	   
@@ -236,7 +236,7 @@ done
 
 ## #####################
 ## RUN FISSED BENCHMARKS 
-for executable in accelerate-blackscholes; do 
+for executable in $EXTRAARGS; do 
   echo "Running fissioned benchmarks"  
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
