@@ -235,7 +235,7 @@ done
 
 ## #####################
 ## RUN FISSED BENCHMARKS 
-for executable in accelerate-blackscholes; do 
+for executable in accelerate-nbody accelerate-blackscholes accelerate-dotp; do 
   echo "Running fissioned benchmarks"  
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
