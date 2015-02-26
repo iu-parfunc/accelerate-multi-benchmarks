@@ -115,7 +115,8 @@ REGRESSES="--regress=allocated:iters --regress=bytesCopied:iters --regress=cycle
 # Step 1: Build everything
 # ========================================
 
-./Setup.sh
+./Setup.sh -j
+# -j --ghc-option=-j3
 
 # Step 2: Run benchmarks, archive results
 # ========================================
