@@ -159,7 +159,7 @@ function go {
 
 
 # megapar accelerate-crystal
-for executable in accelerate-mandelbrot ; do 
+for executable in accelerate-blackscholes; do 
   echo "Running benchmark $executable"
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
@@ -195,7 +195,7 @@ for executable in accelerate-mandelbrot ; do
        done
        ;;
      accelerate-blackscholes) 
-       for arg in 1000 2000 3000 4000 5000; do
+       for arg in 5000 6000 7000 8000 9000 10000; do
 	   ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
 	   go 0;
        done
@@ -229,7 +229,7 @@ done
 
 ## #####################
 ## RUN FISSED BENCHMARKS 
-for executable in accelerate-mandelbrot; do 
+for executable in accelerate-blackscholes; do 
   echo "Running fissioned benchmarks"  
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
@@ -258,7 +258,7 @@ for executable in accelerate-mandelbrot; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 1000 2000 3000 4000 5000; do
+      for arg in 5000 6000 7000 8000 9000 10000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 0;
       done
@@ -287,7 +287,7 @@ for executable in accelerate-mandelbrot; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 1000 2000 3000 4000 5000; do
+      for arg in 5000 6000 7000 8000 9000 10000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 '0 1';
       done
@@ -317,7 +317,7 @@ for executable in accelerate-mandelbrot; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 1000 2000 3000 4000 5000; do
+      for arg in 5000 6000 7000 8000 9000 10000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 0;
       done
@@ -347,7 +347,7 @@ for executable in accelerate-mandelbrot; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 1000 2000 3000 4000 5000; do
+      for arg in 5000 6000 7000 8000 9000 10000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 '0 1';
       done
