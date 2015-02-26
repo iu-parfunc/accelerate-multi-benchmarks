@@ -195,7 +195,7 @@ for executable in accelerate-nbody accelerate-blackscholes; do
        done
        ;;
      accelerate-blackscholes) 
-       for arg in 1000 2000 3000 4000; do
+       for arg in 1000 2000 3000 4000 5000; do
 	   ARGUMENTS="--$variant  -n=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
 	   go 0;
        done
@@ -258,8 +258,8 @@ for executable in accelerate-nbody accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 1000 2000 3000 4000; do
-	  ARGUMENTS="--multi -n=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+      for arg in 1000 2000 3000 4000 5000; do
+	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 0;
       done
       ;;
@@ -287,8 +287,8 @@ for executable in accelerate-nbody accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 1000 2000 3000 4000; do
-	  ARGUMENTS="--multi -n=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+      for arg in 1000 2000 3000 4000 5000; do
+	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 '0 1';
       done
       ;;
@@ -317,8 +317,8 @@ for executable in accelerate-nbody accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 1000 2000 3000 4000; do
-	  ARGUMENTS="--multi -n=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+      for arg in 1000 2000 3000 4000 5000; do
+	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 0;
       done
       ;;
@@ -347,8 +347,8 @@ for executable in accelerate-nbody accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 1000 2000 3000 4000; do
-	  ARGUMENTS="--multi -n=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+      for arg in 1000 2000 3000 4000 5000; do
+	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 '0 1';
       done
       ;;
