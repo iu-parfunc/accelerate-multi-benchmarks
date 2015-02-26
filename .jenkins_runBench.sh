@@ -189,6 +189,12 @@ for executable in $EXTRAARGS; do
      	   go 0;
        done
        ;;
+     fatmegapar) 
+       for arg in 1 2 3 4; do 
+     	   ARGUMENTS="--$variant  -n $arg -m 2000000 --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
+     	   go 0;
+       done
+       ;;
      accelerate-crystal) 
        for arg in 100 200 300 400 500; do
 	   ARGUMENTS="--$variant  --size=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
