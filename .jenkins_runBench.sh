@@ -282,6 +282,13 @@ for executable in $EXTRAARGS; do
 	  go 1 0;
       done
       ;;
+    fatmegapar) 
+       for arg in 1 2 3 4; do 
+     	   ARGUMENTS="--multi -n $arg -m 2000000 --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+     	   go 0;
+       done
+       ;;
+
   esac
   ## FISSED 
   ## backend multi: two devices!
@@ -317,6 +324,13 @@ for executable in $EXTRAARGS; do
 	  go 1 '0 1';
       done
       ;;
+    fatmegapar) 
+       for arg in 1 2 3 4; do 
+     	   ARGUMENTS="--multi -n $arg -m 2000000 --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+     	   go 0;
+       done
+       ;;
+
   esac    
 
   ## UNFISSED 
