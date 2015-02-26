@@ -390,7 +390,7 @@ done
 
    
 echo "Finally: attempt an upload"
-ALLREPS=${TAG}_ALLDATA.csv
+ALLREPS=${HOSTNAME}_${TAG}_ALLDATA.csv
 $CATCSV $OUTCSVS > $BAKDIR/$ALLREPS
 
 # NOTE: could aggressively retry this, since we're alreday done with the benchmarks:
