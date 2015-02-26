@@ -195,7 +195,7 @@ for executable in accelerate-blackscholes; do
        done
        ;;
      accelerate-blackscholes) 
-       for arg in 50000000 60000000 70000000 80000000 90000000 100000000; do
+       for arg in 5000000 6000000 7000000 8000000 9000000 10000000; do
 	   ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
 	   go 0;
        done
@@ -264,7 +264,7 @@ for executable in accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 50000000 60000000 70000000 80000000 90000000 100000000; do
+      for arg in 5000000 6000000 7000000 8000000 9000000 10000000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 0;
       done
@@ -299,7 +299,7 @@ for executable in accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 50000000 60000000 70000000 80000000 90000000 100000000; do
+      for arg in 5000000 6000000 7000000 8000000 9000000 10000000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 '0 1';
       done
@@ -335,7 +335,7 @@ for executable in accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 50000000 60000000 70000000 80000000 90000000 100000000; do
+      for arg in 5000000 6000000 7000000 8000000 9000000 10000000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 0;
       done
@@ -370,7 +370,7 @@ for executable in accelerate-blackscholes; do
       done
       ;;
     accelerate-blackscholes) 
-      for arg in 50000000 60000000 70000000 80000000 90000000 100000000; do
+      for arg in 5000000 6000000 7000000 8000000 9000000 10000000; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 '0 1';
       done
