@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CRITUPLOAD=hsbencher-fusion-upload-criterion-0.3.10
-CSVUPLOAD=hsbencher-fusion-upload-csv-0.3.10
+CRITUPLOAD=hsbencher-fusion-upload-criterion-0.3.15
+CSVUPLOAD=hsbencher-fusion-upload-csv-0.3.15
 CATCSV=cat-csv
 
 # The new new accelerate-multi-benchmarks table 
@@ -159,7 +159,7 @@ function go {
 
 
 # megapar accelerate-crystal
-for executable in accelerate-blackscholes; do 
+for executable in $EXTRAARGS; do 
   echo "Running benchmark $executable"
   REPORT=report_${executable}
   CRITREPORT=${TAG}_${REPORT}
