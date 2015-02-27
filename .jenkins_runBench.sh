@@ -200,6 +200,7 @@ for executable in $EXTRAARGS; do
      	   ARGUMENTS="--$variant  -n $arg -m 2000000 --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
      	   go 0;
        done
+       ;;
      memboundmegapar) 
        for arg in 10000000 20000000 30000000 40000000 50000000 ; do 
      	   ARGUMENTS="--$variant  -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
