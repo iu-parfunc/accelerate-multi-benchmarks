@@ -178,8 +178,8 @@ for executable in $EXTRAARGS; do
        done  
        ;; 
      accelerate-mandelbrot) 
-       for arg in 256 512 1024 2048 4096 8192 16384 32768; do
-	   ARGUMENTS="--$variant --width=$arg --height=$arg  --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
+       for arg in 256 512 1024 2048 4096 8192 16384 32768 65536; do
+	   ARGUMENTS="--$variant --width=$arg --height=$arg  --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit --time-limit=60 +RTS -T -s"
 	   go 0;
        done
        ;;
@@ -274,8 +274,8 @@ for executable in $EXTRAARGS; do
       done  
      ;;
     accelerate-mandelbrot) 
-      for arg in 256 512 1024 2048 4096 8192 16384 32768; do
-	  ARGUMENTS="--multi --width=$arg --height=$arg  --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+      for arg in 256 512 1024 2048 4096 8192 16384 32768 65536; do
+	  ARGUMENTS="--multi --width=$arg --height=$arg  --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit --time-limit=60 +RTS -T -s"
 	  go 1 0;
       done
       ;;
@@ -327,8 +327,8 @@ for executable in $EXTRAARGS; do
       done  
      ;;
     accelerate-mandelbrot) 
-      for arg in 256 512 1024 2048 4096 8192 16384 32768; do
-	  ARGUMENTS="--multi --width=$arg --height=$arg  --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+      for arg in 256 512 1024 2048 4096 8192 16384 32768 65536; do
+	  ARGUMENTS="--multi --width=$arg --height=$arg  --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit --time-limit=60 +RTS -T -s"
 	  go 1 '0 1';
       done
       ;;
