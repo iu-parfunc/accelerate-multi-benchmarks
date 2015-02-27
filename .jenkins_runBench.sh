@@ -184,7 +184,7 @@ for executable in $EXTRAARGS; do
        done
        ;;
      accelerate-mmult) 
-       for arg in 100 200 300 400 500; do	       
+       for arg in 100 200 300 400 500 600; do	       
 	   ARGUMENTS="--$variant  -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
 	   go 0;
        done
@@ -208,7 +208,7 @@ for executable in $EXTRAARGS; do
        done
        ;;
      accelerate-crystal) 
-       for arg in 100 200 300 400 500; do
+       for arg in 10000 20000 30000 40000 50000; do
 	   ARGUMENTS="--$variant  --size=$arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
 	   go 0;
        done
@@ -280,13 +280,13 @@ for executable in $EXTRAARGS; do
       done
       ;;
     accelerate-mmult) 
-      for arg in 100 200 300 400 500; do
+      for arg in 100 200 300 400 500 600; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 0;
       done
       ;;
     accelerate-crystal) 
-      for arg in 100 200 300 400 500; do
+      for arg in 10000 20000 30000 40000 50000; do
 	  ARGUMENTS="--multi --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 0;
       done
@@ -333,13 +333,13 @@ for executable in $EXTRAARGS; do
       done
       ;;
     accelerate-mmult) 
-      for arg in 100 200 300 400 500; do
+      for arg in 100 200 300 400 500 600; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
-	  go 1 0;
+	  go 1 '0 1';
       done
       ;;
     accelerate-crystal) 
-      for arg in 100 200 300 400 500; do
+      for arg in 10000 20000 30000 40000 50000; do
 	  ARGUMENTS="--multi --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 1 '0 1';
       done
@@ -382,13 +382,13 @@ for executable in $EXTRAARGS; do
       done
       ;;
     accelerate-mmult) 
-      for arg in 100 200 300 400 500; do
+      for arg in 100 200 300 400 500 600; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
-	  go 1 0;
+	  go 0 0;
       done
       ;;
     accelerate-crystal) 
-      for arg in 100 200 300 400 500; do
+      for arg in 10000 20000 30000 40000 50000; do
 	  ARGUMENTS="--multi --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 0;
       done
@@ -423,13 +423,13 @@ for executable in $EXTRAARGS; do
       done
       ;;
     accelerate-mmult) 
-      for arg in 100 200 300 400 500; do
+      for arg in 100 200 300 400 500 600; do
 	  ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
-	  go 1 0;
+	  go 0 '0 1';
       done
       ;;
     accelerate-crystal) 
-      for arg in 100 200 300 400 500; do
+      for arg in 10000 20000 30000 40000 50000; do
 	  ARGUMENTS="--multi  --size=$arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	  go 0 '0 1';
       done
