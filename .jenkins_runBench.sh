@@ -225,6 +225,12 @@ for executable in $EXTRAARGS; do
 	   go 0;
        done
        ;;
+     accelerate-kmeans) 
+       for arg in 10000 20000 30000 40000 50000 60000 70000 80000 90000 10000; do
+	   ARGUMENTS="--$variant --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
+	   go 0;
+       done
+       ;;
     esac
   done
 done
@@ -314,7 +320,14 @@ for executable in $EXTRAARGS; do
      	   ARGUMENTS="--multi  -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
      	   go 0;
        done
-
+       ;;
+    accelerate-kmeans) 
+       for arg in 10000 20000 30000 40000 50000 60000 70000 80000 90000 10000; do
+     	   ARGUMENTS="--multi --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	   cabal exec runghc ./Accelerate-examples/examples/kmeans/GenSamples.hs 5 $arg 100000 1010
+     	   go 0;
+       done
+       ;;
   esac
   ## FISSED 
   ## backend multi: two devices!
@@ -362,7 +375,13 @@ for executable in $EXTRAARGS; do
      	   go 0;
        done
        ;;
-
+    accelerate-kmeans) 
+       for arg in 10000 20000 30000 40000 50000 60000 70000 80000 90000 10000; do
+     	   ARGUMENTS="--multi --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	   cabal exec runghc ./Accelerate-examples/examples/kmeans/GenSamples.hs 5 $arg 100000 1010
+     	   go 0;
+       done
+       ;;
   esac    
 
   ## UNFISSED 
@@ -405,6 +424,14 @@ for executable in $EXTRAARGS; do
 	  go 0 0;
       done
       ;;
+    accelerate-kmeans) 
+       for arg in 10000 20000 30000 40000 50000 60000 70000 80000 90000 10000; do
+     	   ARGUMENTS="--multi --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	   cabal exec runghc ./Accelerate-examples/examples/kmeans/GenSamples.hs 5 $arg 100000 1010
+     	   go 0;
+       done
+       ;;
+
   esac
   ## UNFISSED 
   ## backend multi: two devices!
@@ -446,6 +473,14 @@ for executable in $EXTRAARGS; do
 	  go 0 '0 1';
       done
       ;;
+    accelerate-kmeans) 
+       for arg in 10000 20000 30000 40000 50000 60000 70000 80000 90000 10000; do
+     	   ARGUMENTS="--multi --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
+	   cabal exec runghc ./Accelerate-examples/examples/kmeans/GenSamples.hs 5 $arg 100000 1010
+     	   go 0;
+       done
+       ;;
+
   esac    
 done
 
