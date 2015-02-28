@@ -168,11 +168,11 @@ for executable in $EXTRAARGS; do
 
 ## #########################################
 ## RUN UNFISSED BENCHMARKS ON CUDA AND MULTI  
- for variant in cuda multi; do
+ for variant in cuda; do # not multi
    VARIANT=$variant 
    case $executable in 
      accelerate-nbody)  	   
-       for arg in 50000 60000 70000 80000 90000 100000 110000 120000 13000 140000 150000; do
+       for arg in 50000 60000 70000 80000 90000 100000 110000 120000 130000 140000 150000 160000 170000; do
 	  ARGUMENTS="--$variant -n $arg --benchmark --output=${CRITREPORT}_${variant}_${arg}.html --raw=${CRITREPORT}_${variant}_${arg}.crit +RTS -T -s"
 	  go 0; 
        done  
@@ -274,7 +274,7 @@ for executable in $EXTRAARGS; do
   VARIANT=multi_one_device_fissed
   case $executable in 
     accelerate-nbody) 
-      for arg in 50000 60000 70000 80000 90000 100000 110000 120000 13000 140000 150000; do 
+      for arg in 50000 60000 70000 80000 90000 100000 110000 120000 130000 140000 150000 160000 170000; do 
 	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	go 1 0;
       done  
@@ -334,7 +334,7 @@ for executable in $EXTRAARGS; do
   VARIANT=multi_two_device_fissed
   case $executable in 
     accelerate-nbody) 
-      for arg in 50000 60000 70000 80000 90000 100000 110000 120000 13000 140000 150000; do 
+      for arg in 50000 60000 70000 80000 90000 100000 110000 120000 130000 140000 150000 160000 170000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
         go 1 '0 1'; 
       done  
@@ -389,7 +389,7 @@ for executable in $EXTRAARGS; do
   VARIANT=multi_one_device_unfissed
   case $executable in 
     accelerate-nbody) 
-      for arg in 50000 60000 70000 80000 90000 100000 110000 120000 13000 140000 150000; do 
+      for arg in 50000 60000 70000 80000 90000 100000 110000 120000 130000 140000 150000 160000 170000; do 
 	ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
         go 0 0;
       done  
@@ -438,7 +438,7 @@ for executable in $EXTRAARGS; do
   VARIANT=multi_two_device_unfissed
   case $executable in 
     accelerate-nbody) 
-      for arg in 50000 60000 70000 80000 90000 100000 110000 120000 13000 140000 150000; do 
+      for arg in 50000 60000 70000 80000 90000 100000 110000 120000 130000 140000 150000 160000 170000; do 
         ARGUMENTS="--multi -n $arg --benchmark --output=${CRITREPORT}_${VARIANT}_${arg}.html --raw=${CRITREPORT}_${VARIANT}_${arg}.crit +RTS -T -s"
 	go 0 '0 1';
       done  
@@ -480,7 +480,6 @@ for executable in $EXTRAARGS; do
      	   go 0;
        done
        ;;
-
   esac    
 done
 
